@@ -1,114 +1,168 @@
-🚗#Project Name: Vehicle Rental Management System
+# 🚗#Project Name: Vehicle Rental Management System
 
-🔗#Live Demo: [https://your-live-url.com](https://l2a2-kappa.vercel.app/)
+# 🔗#Live Demo: [https://your-live-url.com](https://l2a2-kappa.vercel.app/)
 
-📂#GitHub Repository: [https://github.com/your-repo-link](https://github.com/amit-2424/Level-2-Assignment-2)
+# 📂#GitHub Repository: [https://github.com/your-repo-link](https://github.com/amit-2424/Level-2-Assignment-2)
 
-A complete Vehicle Rental Management System built using Node.js, Express.js, PostgreSQL, and JWT Authentication with dedicated Admin and Customer roles.
+## 🎯 Project Overview
 
-This project provides secure booking, vehicle management, and smooth role-based operations.
+A backend API for a complete **Vehicle Rental Management System** that manages:
 
-✨ Features
-🔐 Authentication & Roles
+- 🚘 **Vehicles** – Inventory with availability status  
+- 👤 **Users** – Admin & Customer authentication  
+- 📅 **Bookings** – Rent vehicles with date validation & price calculation  
+- 🔐 **Secure Access** – JWT-based role validation (Admin & Customer)
 
-JWT-based secure login & signup
+This system ensures clean architecture, modular design, and scalable backend performance.
 
-Role-based access (Admin / Customer)
+---
 
-Admin: Manage vehicles & all bookings
+## 🛠️ Technology Stack
 
-Customer: Browse vehicles & create bookings
+- **Node.js** + **TypeScript**
+- **Express.js**
+- **PostgreSQL**
+- **pg** (PostgreSQL Client)
+- **bcrypt** (Password Hashing)
+- **jsonwebtoken** (JWT Auth)
+- **Custom Middlewares**
 
-🚘 Vehicle Management
+---
 
-Add / Update / Delete vehicles (Admin only)
+## 📁 Code Structure
 
-Track vehicle availability (available / booked)
+src/
+├── modules/
+│ ├── auth/
+│ ├── users/
+│ ├── vehicles/
+│ ├── bookings/
+│
+├── middleware/
+├── utils/
+├── app.ts
+└── server.ts
 
-Automatic validations
+yaml
+Copy code
 
-PostgreSQL constraints for data safety
+Each module contains:
+- Routes  
+- Controller  
+- Service  
+- Validation  
+- Database operations  
 
-📅 Booking Management
+---
 
-Book vehicles with date validation
+## 📊 Database Tables
 
-Auto price calculation
+### 🧑‍💼 Users Table
+| Field | Description |
+|-------|-------------|
+| id | Serial Primary Key |
+| name | Required |
+| email | Unique, lowercase enforced |
+| password | Min 6 characters |
+| phone | Required |
+| role | `'admin'` or `'customer'` |
 
-Prevent double bookings
+---
 
-Admin → view all bookings
+### 🚘 Vehicles Table
+| Field | Description |
+|-------|-------------|
+| id | Serial Primary Key |
+| vehicle_name | Required |
+| type | `'car'`, `'bike'`, `'van'`, `'SUV'` |
+| registration_number | Unique |
+| daily_rent_price | Positive Numeric |
+| availability_status | `'available'` or `'booked'` |
 
-Customer → view only their own bookings
+---
 
-🗄️ Database (PostgreSQL)
+### 📅 Bookings Table
+| Field | Description |
+|-------|-------------|
+| id | Serial Primary Key |
+| customer_id | FK → Users(id) |
+| vehicle_id | FK → Vehicles(id) |
+| rent_start_date | Required |
+| rent_end_date | Must be after start date |
+| total_price | Auto-calculated |
+| status | `'active'`, `'cancelled'`, `'returned'` |
 
-Well-structured relational schema
+---
 
-NUMERIC(10,2) price handling
+## 🔐 Authentication & Authorization
 
-Enum-like validation using CHECK constraints
+### User Roles
+- **Admin**
+  - Manage all vehicles  
+  - View all bookings  
+  - Manage all users  
+- **Customer**
+  - View vehicles  
+  - Create bookings  
+  - View only own bookings  
 
-Strong foreign key rules
+### Authentication Flow
+1. User registers via `/api/v1/auth/signup`
+2. Login via `/api/v1/auth/signin`
+3. Server returns JWT token
+4. Token must be sent in header:  
+Authorization: Bearer <token>
 
-⚙️ Tech Stack
-Layer	Technology
-Backend	Node.js, Express.js
-Database	PostgreSQL, pg
-Authentication	JWT, bcrypt
-Validation	Zod / Joi / Custom Middleware
-Deployment	Render / Railway / Vercel
-🛠️ Setup Instructions
- Clone the Repository
-git clone [https://github.com/your-repo-link.git](https://github.com/amit-2424/Level-2-Assignment-2)
-cd your-project
+pgsql
+Copy code
+5. Middleware validates token + role permissions
 
- Install Dependencies
- npm install
+Unauthorized → **401**  
+Forbidden → **403**
 
- Environment Variables
+---
 
-Create a .env file in project root:
+## 🌐 API Endpoints
 
-PORT=5000
-DATABASE_URL=your_postgres_connection_string
-JWT_SECRET=yourSecretKey
+### 🔐 Authentication
+| Method | Endpoint | Access | Description |
+|--------|----------|--------|-------------|
+| POST | `/api/v1/auth/signup` | Public | Register new user |
+| POST | `/api/v1/auth/signin` | Public | Login & get JWT |
 
- Run Database Migration
+---
 
-(If you added SQL migration files)
+### 🚘 Vehicles API
+| Method | Endpoint | Access | Description |
+|--------|----------|--------|-------------|
+| POST | `/api/v1/vehicles` | Admin | Create new vehicle |
+| GET | `/api/v1/vehicles` | Public | List all vehicles |
+| GET | `/api/v1/vehicles/:vehicleId` | Public | View single vehicle |
+| PUT | `/api/v1/vehicles/:vehicleId` | Admin | Update vehicle info |
+| DELETE | `/api/v1/vehicles/:vehicleId` | Admin | Delete vehicle |
 
-npm run migrate
+---
 
- Start the Server
-npm run dev
+### 🧑‍💼 Users API
+| Method | Endpoint | Access | Description |
+|--------|----------|--------|-------------|
+| GET | `/api/v1/users` | Admin | Get all users |
+| PUT | `/api/v1/users/:userId` | Admin / Self | Admin: update any user<br>Customer: update own profile |
+| DELETE | `/api/v1/users/:userId` | Admin | Delete user |
 
+---
 
-Server will run at:
-👉 http://localhost:5000/
+### 📅 Bookings API
+| Method | Endpoint | Access | Description |
+|--------|----------|--------|-------------|
+| POST | `/api/v1/bookings` | Customer / Admin | Create a booking & auto-calc price |
+| GET | `/api/v1/bookings` | Admin | View all bookings |
+| GET | `/api/v1/bookings/my` | Customer | View own bookings |
+| PUT | `/api/v1/bookings/:id/return` | Customer/Admin | Return vehicle |
+| PUT | `/api/v1/bookings/:id/cancel` | Customer/Admin | Cancel booking |
 
-📌 API Endpoint Overview
-🔐 Authentication
-```
-Method	Endpoint	Description
-POST	/api/v1/auth/register	Register user
-POST	/api/v1/auth/login	Login and receive JWT
-```
-🚘 Vehicles
-Method	Endpoint	Access
-```
-GET	/api/v1/vehicles	Public
-POST	/api/v1/vehicles	Admin
-PUT	/api/v1/vehicles/:id	Admin
-DELETE	/api/v1/vehicles/:id	Admin
-```
-📅 Bookings
-```
-Method	Endpoint	Access
-POST	/api/v1/bookings	Customer
-GET	/api/v1/bookings	Admin
-GET	/api/v1/bookings/my	Customer
-```
+---
+
 🌍 Deployment Options
 
 You can deploy the backend easily using:
