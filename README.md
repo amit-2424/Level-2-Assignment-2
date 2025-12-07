@@ -59,14 +59,14 @@ Authentication	JWT, bcrypt
 Validation	Zod / Joi / Custom Middleware
 Deployment	Render / Railway / Vercel
 🛠️ Setup Instructions
-1️⃣ Clone the Repository
-git clone https://github.com/your-repo-link.git
+ Clone the Repository
+git clone [https://github.com/your-repo-link.git](https://github.com/amit-2424/Level-2-Assignment-2)
 cd your-project
 
-2️⃣ Install Dependencies
-npm install
+ Install Dependencies
+ npm install
 
-3️⃣ Environment Variables
+ Environment Variables
 
 Create a .env file in project root:
 
@@ -74,13 +74,13 @@ PORT=5000
 DATABASE_URL=your_postgres_connection_string
 JWT_SECRET=yourSecretKey
 
-4️⃣ Run Database Migration
+ Run Database Migration
 
 (If you added SQL migration files)
 
 npm run migrate
 
-5️⃣ Start the Server
+ Start the Server
 npm run dev
 
 
@@ -89,20 +89,26 @@ Server will run at:
 
 📌 API Endpoint Overview
 🔐 Authentication
+```
 Method	Endpoint	Description
 POST	/api/v1/auth/register	Register user
 POST	/api/v1/auth/login	Login and receive JWT
+```
 🚘 Vehicles
 Method	Endpoint	Access
+```
 GET	/api/v1/vehicles	Public
 POST	/api/v1/vehicles	Admin
 PUT	/api/v1/vehicles/:id	Admin
 DELETE	/api/v1/vehicles/:id	Admin
+```
 📅 Bookings
+```
 Method	Endpoint	Access
 POST	/api/v1/bookings	Customer
 GET	/api/v1/bookings	Admin
 GET	/api/v1/bookings/my	Customer
+```
 🌍 Deployment Options
 
 You can deploy the backend easily using:
