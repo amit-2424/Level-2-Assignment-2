@@ -1,72 +1,74 @@
-#Project Name: Vehicle Rental Management System
+🚗#Project Name: Vehicle Rental Management System
 
-#Live Demo: [https://your-live-url.com](https://l2a2-kappa.vercel.app/)
+🔗#Live Demo: [https://your-live-url.com](https://l2a2-kappa.vercel.app/)
 
-#GitHub Repository: [https://github.com/your-repo-link](https://github.com/amit-2424/Level-2-Assignment-2)
+📂#GitHub Repository: [https://github.com/your-repo-link](https://github.com/amit-2424/Level-2-Assignment-2)
 
-A complete vehicle rental management system built using Node.js, Express.js, PostgreSQL, and JWT authentication.
-This project supports admin and customer roles with secure booking management.
+A complete Vehicle Rental Management System built using Node.js, Express.js, PostgreSQL, and JWT Authentication with dedicated Admin and Customer roles.
 
-⭐ Features
+This project provides secure booking, vehicle management, and smooth role-based operations.
+
+✨ Features
 🔐 Authentication & Roles
 
-JWT-based login & registration
+JWT-based secure login & signup
 
-Role-based access control
+Role-based access (Admin / Customer)
 
-Admin can manage vehicles & bookings
+Admin: Manage vehicles & all bookings
 
-Customers can browse and rent vehicles
+Customer: Browse vehicles & create bookings
 
 🚘 Vehicle Management
 
 Add / Update / Delete vehicles (Admin only)
 
-Vehicle availability tracking (available / booked)
+Track vehicle availability (available / booked)
 
-Price validation with PostgreSQL constraints
+Automatic validations
 
-📅 Booking System
+PostgreSQL constraints for data safety
 
-Book a vehicle with date validation
+📅 Booking Management
 
-Prevent double-booking
+Book vehicles with date validation
 
-Admin can view all bookings
+Auto price calculation
 
-Customer can only view own bookings
+Prevent double bookings
+
+Admin → view all bookings
+
+Customer → view only their own bookings
 
 🗄️ Database (PostgreSQL)
 
-Secure schema with constraints
+Well-structured relational schema
 
-Numeric pricing
+NUMERIC(10,2) price handling
 
-Enum-like validation using CHECK
+Enum-like validation using CHECK constraints
 
-⚙️ Technologies Used
+Strong foreign key rules
 
-Backend: Node.js, Express.js
-
-Database: PostgreSQL, pg
-
-Auth: JWT, bcrypt
-
-Validation: Zod / Joi / Custom middleware
-
-Deployment: Render / Vercel / Railway
-
+⚙️ Tech Stack
+Layer	Technology
+Backend	Node.js, Express.js
+Database	PostgreSQL, pg
+Authentication	JWT, bcrypt
+Validation	Zod / Joi / Custom Middleware
+Deployment	Render / Railway / Vercel
 🛠️ Setup Instructions
 1️⃣ Clone the Repository
-git clone [https://github.com/your-repo-link.git](https://github.com/amit-2424/Level-2-Assignment-2)
+git clone https://github.com/your-repo-link.git
 cd your-project
 
 2️⃣ Install Dependencies
 npm install
 
-3️⃣ Setup Environment Variables
+3️⃣ Environment Variables
 
-Create a .env file:
+Create a .env file in project root:
 
 PORT=5000
 DATABASE_URL=your_postgres_connection_string
@@ -74,7 +76,7 @@ JWT_SECRET=yourSecretKey
 
 4️⃣ Run Database Migration
 
-(If you used SQL files or auto-sync)
+(If you added SQL migration files)
 
 npm run migrate
 
@@ -85,30 +87,30 @@ npm run dev
 Server will run at:
 👉 http://localhost:5000/
 
-📌 API Endpoints Overview
-🔐 Auth
-POST /api/auth/register
-POST /api/auth/login
-
+📌 API Endpoint Overview
+🔐 Authentication
+Method	Endpoint	Description
+POST	/api/v1/auth/register	Register user
+POST	/api/v1/auth/login	Login and receive JWT
 🚘 Vehicles
-GET    /api/vehicles         (public)
-POST   /api/vehicles         (admin)
-PUT    /api/vehicles/:id     (admin)
-DELETE /api/vehicles/:id     (admin)
-
+Method	Endpoint	Access
+GET	/api/v1/vehicles	Public
+POST	/api/v1/vehicles	Admin
+PUT	/api/v1/vehicles/:id	Admin
+DELETE	/api/v1/vehicles/:id	Admin
 📅 Bookings
-POST   /api/bookings         (customer)
-GET    /api/bookings         (admin only)
-GET    /api/bookings/my      (customer only)
+Method	Endpoint	Access
+POST	/api/v1/bookings	Customer
+GET	/api/v1/bookings	Admin
+GET	/api/v1/bookings/my	Customer
+🌍 Deployment Options
 
-🌍 Deployment
+You can deploy the backend easily using:
 
-You can deploy on:
+🔵 Render
 
-Render
+🚆 Railway
 
-Railway
+▲ Vercel (Serverless Functions)
 
-Vercel (backend serverless)
-
-DigitalOcean
+🟣 DigitalOcean Apps
