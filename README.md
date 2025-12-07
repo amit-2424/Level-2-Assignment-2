@@ -60,9 +60,7 @@ It includes **user authentication**, **role-based access**, **vehicle management
 
 ---
 
-## ⚙️ Installation & Setup
-
-### 1️ Clone the repository
+### Githu repository
 
 git clone [https://github.com/YOUR_REPO_URL.git](https://github.com/amit-2424/Level-2-Assignment-2)
 
