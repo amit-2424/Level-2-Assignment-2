@@ -4,173 +4,119 @@
 
 ### 📂#GitHub Repository: [https://github.com/your-repo-link](https://github.com/amit-2424/Level-2-Assignment-2)
 
-## 🎯 Project Overview
+---
 
-A backend API for a complete **Vehicle Rental Management System** that manages:
+## 📘 Overview
 
-- 🚘 **Vehicles** – Inventory with availability status  
-- 👤 **Users** – Admin & Customer authentication  
-- 📅 **Bookings** – Rent vehicles with date validation & price calculation  
-- 🔐 **Secure Access** – JWT-based role validation (Admin & Customer)
-
-This system ensures clean architecture, modular design, and scalable backend performance.
+The **Vehicle Rental Management System** is a full-stack application designed to manage vehicle rentals efficiently.  
+It includes **user authentication**, **role-based access**, **vehicle management**, **booking creation**, **automatic price calculation**, and **real-time vehicle availability updates**.
 
 ---
 
-## 🛠️ Technology Stack
+## ⭐ Features
 
-- **Node.js** + **TypeScript**
-- **Express.js**
-- **PostgreSQL**
-- **pg** (PostgreSQL Client)
-- **bcrypt** (Password Hashing)
-- **jsonwebtoken** (JWT Auth)
-- **Custom Middlewares**
+### 🔐 Authentication & Authorization
+- Secure login using **JWT**
+- Role-based access (**Admin & Customer**)
 
----
+### 🚘 Vehicle Management
+- Add, update, delete vehicles (Admin)
+- View all vehicles
+- Automatic availability updates (**available / booked**)
 
-## 📁 Code Structure
+### 📅 Booking Management
+- Create bookings with automatic price calculation
+- Admin can view all bookings
+- Customers can view only their own bookings
+- Customers can cancel bookings
+- Admin can mark vehicles as **returned**
 
-src/
-├── modules/
+### 👤 Customer Features
+- Book vehicles
+- View own bookings
+- Cancel bookings
 
-│ ├── auth/
-
-│ ├── users/
-
-│ ├── vehicles/
-
-│ ├── bookings/
-
-│
-├── middleware/
-
-├── utils/
-
-├── app.ts
-
-└── server.ts
-
-yaml
-Copy code
-
-Each module contains:
-- Routes  
-- Controller  
-- Service  
-- Validation  
-- Database operations  
+### 🛠️ Admin Features
+- Manage vehicles
+- View all bookings
+- Update booking status
 
 ---
 
-## 📊 Database Tables
+## 🧰 Technology Stack
 
-### 🧑‍💼 Users Table
-| Field | Description |
-|-------|-------------|
-| id | Serial Primary Key |
-| name | Required |
-| email | Unique, lowercase enforced |
-| password | Min 6 characters |
-| phone | Required |
-| role | `'admin'` or `'customer'` |
+### 🔙 Backend
+- Node.js  
+- Express.js  
+- TypeScript  
+- PostgreSQL  
+- JWT Authentication  
+- Bcrypt  
+- `pg` PostgreSQL library  
 
----
+### 🎨 Frontend (if used)
+- React.js / Next.js  
+- Tailwind CSS  
+- Axios  
 
-### 🚘 Vehicles Table
-| Field | Description |
-|-------|-------------|
-| id | Serial Primary Key |
-| vehicle_name | Required |
-| type | `'car'`, `'bike'`, `'van'`, `'SUV'` |
-| registration_number | Unique |
-| daily_rent_price | Positive Numeric |
-| availability_status | `'available'` or `'booked'` |
+### 🏗️ Architecture
+- REST API  
+- MVC + Service Layer Pattern  
 
 ---
 
-### 📅 Bookings Table
-| Field | Description |
-|-------|-------------|
-| id | Serial Primary Key |
-| customer_id | FK → Users(id) |
-| vehicle_id | FK → Vehicles(id) |
-| rent_start_date | Required |
-| rent_end_date | Must be after start date |
-| total_price | Auto-calculated |
-| status | `'active'`, `'cancelled'`, `'returned'` |
+## ⚙️ Installation & Setup
 
----
+### 1️ Clone the repository
 
-## 🔐 Authentication & Authorization
+git clone [https://github.com/YOUR_REPO_URL.git](https://github.com/amit-2424/Level-2-Assignment-2)
 
-### User Roles
-- **Admin**
-  - Manage all vehicles  
-  - View all bookings  
-  - Manage all users  
-- **Customer**
-  - View vehicles  
-  - Create bookings  
-  - View only own bookings  
+🚀 Usage Instructions
+🔑 1. Register or Login
 
-### Authentication Flow
-1. User registers via `/api/v1/auth/signup`
-2. Login via `/api/v1/auth/signin`
-3. Server returns JWT token
-4. Token must be sent in header:  
+You will receive a JWT token.
+
+🛡️ 2. Use Authorization Header
 Authorization: Bearer <token>
 
-pgsql
-Copy code
-5. Middleware validates token + role permissions
+📌 Main API Endpoints
+🔐 Authentication
 
-Unauthorized → **401**  
-Forbidden → **403**
+POST /api/v1/auth/signup
 
----
+POST /api/v1/auth/login
 
-## 🌐 API Endpoints
+🚘 Vehicles
+```
+GET /api/v1/vehicles
 
-### 🔐 Authentication
-| Method | Endpoint | Access | Description |
-|--------|----------|--------|-------------|
-| POST | `/api/v1/auth/signup` | Public | Register new user |
-| POST | `/api/v1/auth/signin` | Public | Login & get JWT |
+POST /api/v1/vehicles (Admin)
 
----
+PUT /api/v1/vehicles/:id (Admin)
 
-### 🚘 Vehicles API
-| Method | Endpoint | Access | Description |
-|--------|----------|--------|-------------|
-| POST | `/api/v1/vehicles` | Admin | Create new vehicle |
-| GET | `/api/v1/vehicles` | Public | List all vehicles |
-| GET | `/api/v1/vehicles/:vehicleId` | Public | View single vehicle |
-| PUT | `/api/v1/vehicles/:vehicleId` | Admin | Update vehicle info |
-| DELETE | `/api/v1/vehicles/:vehicleId` | Admin | Delete vehicle |
+DELETE /api/v1/vehicles/:id (Admin)
+```
+📅 Bookings
+```
+POST /api/v1/bookings
 
----
+GET /api/v1/bookings (Admin)
 
-### 🧑‍💼 Users API
-| Method | Endpoint | Access | Description |
-|--------|----------|--------|-------------|
-| GET | `/api/v1/users` | Admin | Get all users |
-| PUT | `/api/v1/users/:userId` | Admin / Self | Admin: update any user<br>Customer: update own profile |
-| DELETE | `/api/v1/users/:userId` | Admin | Delete user |
+GET /api/v1/bookings/my (Customer)
 
----
-
-### 📅 Bookings API
-| Method | Endpoint | Access | Description |
-|--------|----------|--------|-------------|
-| POST | `/api/v1/bookings` | Customer / Admin | Create a booking & auto-calc price |
-| GET | `/api/v1/bookings` | Admin | View all bookings |
-| GET | `/api/v1/bookings/my` | Customer | View own bookings |
-| PUT | `/api/v1/bookings/:id/return` | Customer/Admin | Return vehicle |
-| PUT | `/api/v1/bookings/:id/cancel` | Customer/Admin | Cancel booking |
-
----
-
+PUT /api/v1/bookings/:id
+```
+📁 Codebase Structure
+```
+src/
+ ┣ routes/
+ ┣ controllers/
+ ┣ services/
+ ┣ middleware/
+ ┣ utils/
+ ┣ config/
+ ┗ app.ts
+```
 🌍 Deployment Options
 
 You can deploy the backend easily using:
