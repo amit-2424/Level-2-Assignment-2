@@ -1,8 +1,8 @@
-# 🚗#Project Name: Vehicle Rental Management System
+### 🚗#Project Name: Vehicle Rental Management System
 
-# 🔗#Live Demo: [https://your-live-url.com](https://l2a2-kappa.vercel.app/)
+### 🔗#Live Demo: [https://your-live-url.com](https://l2a2-kappa.vercel.app/)
 
-# 📂#GitHub Repository: [https://github.com/your-repo-link](https://github.com/amit-2424/Level-2-Assignment-2)
+### 📂#GitHub Repository: [https://github.com/your-repo-link](https://github.com/amit-2424/Level-2-Assignment-2)
 
 ## 🎯 Project Overview
 
@@ -33,14 +33,22 @@ This system ensures clean architecture, modular design, and scalable backend per
 
 src/
 ├── modules/
+
 │ ├── auth/
+
 │ ├── users/
+
 │ ├── vehicles/
+
 │ ├── bookings/
+
 │
 ├── middleware/
+
 ├── utils/
+
 ├── app.ts
+
 └── server.ts
 
 yaml
