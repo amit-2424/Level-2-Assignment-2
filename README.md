@@ -54,14 +54,9 @@ It includes **user authentication**, **role-based access**, **vehicle management
 - Bcrypt  
 - `pg` PostgreSQL library  
 
-### 🎨 Frontend (if used)
-- React.js / Next.js  
-- Tailwind CSS  
-- Axios  
-
 ### 🏗️ Architecture
-- REST API  
-- MVC + Service Layer Pattern  
+-  API  
+- Modulear Pattern  
 
 ---
 
